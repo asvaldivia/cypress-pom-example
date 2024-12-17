@@ -1,0 +1,30 @@
+[
+    {
+        "title" : "International Software Testing Qualifications Board",
+        "location": "https://www.istqb.org/"
+    },
+    {
+        "title" : "What we do",
+        "location": "https://www.istqb.org/about-us/what-we-do"
+    }
+    ,
+    {
+        "title" : "Why ISTQB®",
+        "location": "https://www.istqb.org/about-us/why-istqb"
+    }
+    ,
+    {
+        "title" : "Managing the Test Team",
+        "location": "https://www.istqb.org/certifications/certification-list"
+    }
+    ,
+    {
+        "title" : "News Page",
+        "location": "https://www.istqb.org/news"
+    }
+    ,
+    {
+        "title" : "ISTQB® Help Center",
+        "location": "https://www.istqb.org/help"
+    }
+]

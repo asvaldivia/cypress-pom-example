@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "cy:run:chrome": "cypress run -b chrome",
+    "cy:run:electron": "cypress run -b electron"
+  },
+  "devDependencies": {
+    "cypress": "^12.8.0",
+    "cypress-xpath": "^2.0.1"
+  }
+}

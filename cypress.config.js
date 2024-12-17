@@ -1,0 +1,32 @@
+const { defineConfig } = require("cypress");
+
+module.exports = defineConfig({
+  projectId: "rynzrb",
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+      // implementing task, which is useful to perform actions in node, outside web context
+      // a use case can be: read a file, seed a database before test, etc
+      on('task', {
+        logMessage (message) {
+          console.log(message);
+          return null;
+        },
+        calculateSum({ a, b }) {
+          return a + b;
+        },
+        dbSeed(){
+          const seedModule = require('./cypress/db/seed.js');
+          return seedModule.seed();
+        },
+        dbTearDown(){
+          const teardownModule = require('./cypress/db/teardown.js')
+          return teardownModule.tearDown();
+        }
+
+      })
+    }
+  },
+  video: true,
+  chromeWebSecurity: false
+});
