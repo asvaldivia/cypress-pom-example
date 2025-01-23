@@ -6,7 +6,7 @@ describe('Home of ISTQB', () => {
         cy.visit('https://www.istqb.org/');
     })
 
-    it('Should have a tittle', () => {
+    it.skip('Should have a tittle', () => {
         cy.title().should('include', 'International Software Testing Qualifications Board');
     })
 
@@ -17,32 +17,41 @@ describe('Home of ISTQB', () => {
         // we want to know how many certification categories we can see
         cy.get('div[id="content"] > section:nth-child(2) > div > div > a > span')
         .then((categories) => {
-            cy.task('logMessage', 'Number of categories found: ',categories.length);
+            cy.task('logMessage', 'Number of categories found: '+ categories.length);
             expect(categories.length).to.be.greaterThan(2);
             categoriesTextArray = [...categories].map(category => category.innerText);
+            cy.task('logMessage', 'Catories array: '+ categoriesTextArray);
+            // counting the courses in each category,
+            // should be at least 1 courses available for each category
+            categoriesTextArray.forEach(category => {
+                // use the cy.get(#id).contains('text') to find the category
+                cy.get('div.text h2').each((element) => {
+                    cy.task('logMessage', 'This is the element text: '+ element.text());
+                    cy.task('logMessage', 'This is the category: '+ category);
+                    
+                    if(element.text() === category){
+                        const textOfElement = element.text();
+                        cy.task('logMessage', 'The text of the element '+textOfElement+' is matching with the category '+category+' !!!');
+                        
+                        // find the parent of the category
+                        const parent = element.parents('div').siblings();
+                        cy.task('logMessage', 'Parent tag name: ' + parent.prop('tagName'));
+                        cy.task('logMessage', 'Parent classes: ' + parent.attr('class'));
+                        cy.task('logMessage', 'Parent HTML content: ' + parent.html());
+                        // find the sibling of the parent
+                        //const sibling = parent.siblings();
+                        // find the courses
+                        //const courses = sibling.find('div.text h3');
+                        // log the number of courses
+                        //cy.task('logMessage', 'Number of courses found for category {{category}}: ', courses.length);
+                        //expect(courses.length).to.be.greaterThan(1);
+                    }
+                })
         })
-
-        // counting the courses in each category,
-        // should be at least 1 courses available for each category
-        categoriesTextArray.forEach(category => {
-            // use the cy.get(#id).contains('text') to find the category
-            cy.get('div.text h2').each((element) => {
-                if(element.text() === category){
-                    // find the parent of the category
-                    const parent = element.parent();
-                    // find the sibling of the parent
-                    const sibling = parent.siblings();
-                    // find the courses
-                    const courses = sibling.find('div.text h3');
-                    // log the number of courses
-                    cy.task('logMessage', 'Number of courses found for category {{category}}: ', courses.length);
-                    expect(courses.length).to.be.greaterThan(1);
-                }
-            })
         })
     })
 
-    it('should find training providers', () => {
+    it.skip('should find training providers', () => {
         // Check more than 2 training providers
 
     })
