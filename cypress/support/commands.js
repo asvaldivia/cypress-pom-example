@@ -95,3 +95,10 @@ Cypress.Commands.add('visitInSameTab', (url) => {
         })
     })
 })
+
+// Clearing cache
+Cypress.Commands.add('clearCache', { prevSubject: false }, () => {
+    localStorage.clear()
+    indexedDB.deleteDatabase('cypress')
+    return true
+  })

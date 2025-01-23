@@ -12,6 +12,11 @@ module.exports = defineConfig({
           console.log(message);
           return null;
         },
+        table(message) {
+          console.table(message)
+    
+          return null
+        },
         calculateSum({ a, b }) {
           return a + b;
         },
@@ -28,5 +33,6 @@ module.exports = defineConfig({
     }
   },
   video: true,
-  chromeWebSecurity: false
+  chromeWebSecurity: false,
+  reporter: 'mochawesome'
 });

@@ -33,5 +33,8 @@ coverage/
 cypress/screenshots/
 cypress/videos/
 
+# mochawesome reports
+mochawesome-report/
+
 # Lock files (optional, if not needed)
 package-lock.json
