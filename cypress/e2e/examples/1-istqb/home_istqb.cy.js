@@ -6,11 +6,11 @@ describe('Home of ISTQB', () => {
         cy.visit('https://www.istqb.org/');
     })
 
-    it.skip('Should have a tittle', () => {
+    it('Should have a tittle', () => {
         cy.title().should('include', 'International Software Testing Qualifications Board');
     })
 
-    it.skip('should find certifications', () => {
+    it('should find certifications', () => {
         let categoriesTextArray;
         // clicking on certifications
         cy.get('ul.header-nav.header-nav-main.nav.nav-left.nav-line-bottom.nav-size-medium.nav-spacing-xlarge > li:nth-child(2)', {timeout: 10000}).click();
@@ -73,4 +73,3 @@ describe('Home of ISTQB', () => {
     })
     
 })
-Cypress.config('defaultCommandTimeout', 4000);
