@@ -1,7 +1,8 @@
 {
   "scripts": {
     "cy:run:chrome": "cypress run -b chrome",
-    "cy:run:electron": "cypress run -b electron"
+    "cy:run:electron": "cypress run -b electron",
+    "cy:open": "cypress open"
   },
   "devDependencies": {
     "axe-core": "^4.10.2",

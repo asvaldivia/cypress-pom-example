@@ -18,7 +18,9 @@ class freerangeHome {
     }
 
     getCourses(){
-        return cy.get('#page_section_70302303 > div > section > div.sc-dntaoT.jyoYKi > div > div.sc-CNKsk.hKwrHw');
+        return cy.get('[data-testid=container].sc-dDvxFM.dHVGEg')
+        .eq(2)
+        .find('h3')
     }
 
     getNavigationBar(){

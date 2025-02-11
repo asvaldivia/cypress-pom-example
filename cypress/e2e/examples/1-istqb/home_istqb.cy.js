@@ -1,4 +1,3 @@
-Cypress.config('defaultCommandTimeout', 10000);
 
 describe('Home of ISTQB', () => {
     beforeEach(() =>{
