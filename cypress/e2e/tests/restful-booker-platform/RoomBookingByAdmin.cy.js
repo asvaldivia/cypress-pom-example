@@ -1,7 +1,6 @@
 import AdminLoginPage from '../../../pages/restful-booker-platform/HomeAdminPage.js';
 import ReportPage from '../../../pages/restful-booker-platform/ReportPage.js';
 import NavigationBar from '../../../components/NavigationBar.js';
-import HomePage from '../../../pages/restful-booker-platform/HomePage.js';
 
 describe('Room Booking By Admin', () => {
     let adminLoginPage;
@@ -37,21 +36,18 @@ describe('Room Booking By Admin', () => {
         NavigationBar.goToRepors();
         reportPage.assertReportPageIsVisible();
 
-        // Wait for the request to get the bookingid
-        //cy.interceptBookingRequest();
-        //cy.waitForBookingRequest();
         // Select dates for booking
         reportPage.selectDatesForBooking()
             .fillInBookingDetails('Alvaro', 'Valdivia', '101', 'true')
             .confirmBooking()
             .getErrorAlert().should('not.exist');
         
-            cy.waitForBookingRequest();
+        // Wait for the booking request to complete and get the bookingid
+        cy.waitForBookingRequest();
 
         // Assert booking confirmation
         reportPage.getBookedDates()
             .should('exist')
             .should('be.visible');
-
     }); 
 })
