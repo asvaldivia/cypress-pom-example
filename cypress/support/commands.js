@@ -24,6 +24,44 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+// -- Custom commands to handle booking deletion for cleanup --
+// This command will intercept the booking request to get the bookingid
+// You should call this on the beforeEach hook to start listening for the request
+Cypress.Commands.add('interceptBookingRequest', () => {
+    cy.intercept('POST', '/booking').as('createBooking');
+})
+
+// Wait for the request to be completed
+// Call this after the action that creates a booking (cypress functions are asynchronous)
+Cypress.Commands.add('waitForBookingRequest', () => {
+    cy.wait('@createBooking').then((interception) => {
+        expect(interception.response.statusCode).to.equal(201);
+
+        cy.wrap(interception.response.body.bookingid).as('bookingId');
+    })
+})
+
+// This command will delete the booking
+// retrieve the bookingid from the alias on the command above
+// to be called on the afterEach hook
+// Auth token is not needed because the request is sent on the
+// same session and domain (cypress magic)
+Cypress.Commands.add('deleteBooking', () => {
+    cy.get('@bookingId').then((bookingId) => {
+        if(bookingId) {
+            cy.request({
+                method: 'DELETE',
+                url: `/booking/${bookingId}`,
+                headers: {
+                    'content-Type': 'application/json'
+                    //'cookie': `token=${authToken}`
+                },
+                failOnStatusCode: false,
+            });
+        }
+    })
+})
+
 // global var to use cookie in all specs
 Cypress.env('sessionCookie', '');
 
@@ -102,3 +140,4 @@ Cypress.Commands.add('clearCache', { prevSubject: false }, () => {
     indexedDB.deleteDatabase('cypress')
     return true
   })
+

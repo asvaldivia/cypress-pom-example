@@ -1,5 +1,6 @@
 import { AdminLoginPageSelectors } from "../../selectors/adminLoginPageSelectors.js";
 import BasePage from "./BasePage.js";
+import HomePage from "./HomePage.js";
 
 class HomeAdminPage extends BasePage {
     constructor() {
@@ -9,9 +10,11 @@ class HomeAdminPage extends BasePage {
     }   
 
     login(username, password) {
-        cy.get(this.elements.userNameInput).type(username);
-        cy.get(this.elements.passwordInput).type(password);
-        cy.get(this.elements.loginButton).click();
+        this.type(this.elements.userNameInput, username);
+        this.type(this.elements.passwordInput, password);
+        this.click(this.elements.loginButton);
+
+        return new HomePage();
     }
 }
 

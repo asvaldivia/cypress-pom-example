@@ -8,7 +8,7 @@ class BasePage {
 
         this.url = `${this.baseUrl}${this.path}`;
 
-        Cypress.log({
+        Cypress.log({   
             name: 'PageObject',
             message: `Initialized ${this.constructor.name} for ${this.environment} environment: ${this.url}`
         });
@@ -91,6 +91,38 @@ class BasePage {
      */
     getTitle() {
         return cy.title();
+    }
+
+    /**
+     * Set the system clock to a specific date and time
+     * @param {Date} targetDate - The date and time to set the system clock to
+     * Does not return anything, works directly on the system clock
+    */
+    setSystemClock(targetDate) {
+        cy.clock(targetDate.getTime());
+    }
+
+    /**
+     * Select an option from a dropdown
+     * @param {string} selector - The dropdown selector
+     * @param {string} value - The value to select
+     * @returns {BasePage} - Returns this page object for method chaining
+    */
+    select(selector, value) {
+        cy.get(selector).select(value);
+        return this;
+    }
+
+    /**
+     * Return the selector
+     * for being used on tests
+     * so assertions can be handled on the test files
+     * @param {string} selector - The selector to return
+     * @returns {cy.get(selector)} - Returns the cypress representation of the element
+     * in the DOM
+    */
+    getSelector(selector) {
+        return cy.get(selector);
     }
 }
 
