@@ -50,4 +50,20 @@ describe('Room Booking By Admin', () => {
             .should('exist')
             .should('be.visible');
     }); 
+
+    it('Book a room already booked for the dates (Admin)', () => {
+        // Make the booking via API
+        // the command itself wraps the response to get the bookingid
+        // and sets it as an alias
+        cy.createBooking();
+ 
+        // Navigate to the report page
+        NavigationBar.goToRepors();
+        // Select dates for booking, should be the same dates as the previous booking made via API in this test
+        reportPage.selectDatesForBooking()
+            .fillInBookingDetails('Alvaro', 'Valdivia', '101', 'true')
+            .confirmBooking()
+            // Assert booking error
+            .getErrorAlert().should('exist');
+    })
 })

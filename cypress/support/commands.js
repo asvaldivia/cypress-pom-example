@@ -62,6 +62,37 @@ Cypress.Commands.add('deleteBooking', () => {
     })
 })
 
+// This command will make a booking
+Cypress.Commands.add('createBooking', () => {
+    cy.request({
+        method: 'POST',
+        url: '/booking/',
+        headers: {
+            'content-Type': 'application/json'
+        },  
+        body: {
+            'bookingdates': 
+                {
+                    'checkin':'2025-04-27',
+                    'checkout':'2025-05-03'
+                },
+            'depositpaid':true,
+            'firstname':'Alvaro Salvador',
+            'lastname':'Valdivia Calizaya',
+            'roomid':1,
+            'email':'askas@gmail.com',
+            'phone':'59175330974'
+        },
+        failOnStatusCode: false,
+    }).then((response) => {
+        expect(response.status).to.eq(201);
+        expect(response.body).to.have.property('bookingid');
+
+        cy.wrap(response.body.bookingid).as('bookingId');
+    });
+})
+
+
 // global var to use cookie in all specs
 Cypress.env('sessionCookie', '');
 

@@ -1,4 +1,4 @@
-import freerangeHome from "../../../page/freerange/FreeRangeHomePage";
+import freerangeHome from "../../../pages/freerange/FreeRangeHomePage";
 const freerange_home = new freerangeHome();
 
 describe('Home of freerange', () => {

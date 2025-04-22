@@ -1,6 +1,6 @@
-import istqbHome from "../../../page/istqb/IstqbHomePage";
-import istqbCertifications from "../../../page/istqb/IstqbCertificationsPage";
-import IstqbTrainingProvidersPage from "../../../page/istqb/IstqbTrainingProvidersPage";
+import istqbHome from "../../../pages/istqb/IstqbHomePage";
+import istqbCertifications from "../../../pages/istqb/IstqbCertificationsPage";
+import IstqbTrainingProvidersPage from "../../../pages/istqb/IstqbTrainingProvidersPage";
 
 const _istqbHome = new istqbHome();
 const _istqbCertifications = new istqbCertifications();
