@@ -76,7 +76,18 @@ describe('API Testing using cypress and request', () => {
 
         cy.intercept('GET', '/todos', fixed_response).as('staticResponse');
 
-        cy.visit('https://jsonplaceholder.typicode.com', {timeout: 120000});
+        // Stubbing a request response with a 204 status code, that resource takes too much time to
+        // respond and blocked the page load event
+        cy.intercept('GET', '**/ethicalads.min.js', {
+            statusCode: 204, // No content
+            body: '',
+          }).as('blockedJS');
+
+        cy.visit('https://jsonplaceholder.typicode.com', 
+            {
+                timeout: 10000,
+                failOnStatusCode: false
+            });
         
         cy.get(':nth-child(5) > :nth-child(1) > a').click();
 

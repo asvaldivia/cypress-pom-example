@@ -18,8 +18,7 @@ class freerangeHome {
     }
 
     getCourses(){
-        return cy.get('[data-testid=container].sc-dDvxFM.dHVGEg')
-        .eq(2)
+        return cy.get('#page_section_78156695 > div > section > div.sc-dycHyt.kOKlGX > div > div > section')
         .find('h3')
     }
 
