@@ -47,8 +47,11 @@ Cypress.Commands.add('waitForBookingRequest', () => {
 // Auth token is not needed because the request is sent on the
 // same session and domain (cypress magic)
 Cypress.Commands.add('deleteBooking', () => {
-    cy.get('@bookingId').then((bookingId) => {
-        if(bookingId) {
+    // Verifying if the bookingId alias exists first
+    const allAliases = Cypress.state('aliases');
+    if (allAliases && allAliases.bookingId) {
+      cy.get('@bookingId').then(bookingId => {
+        if (bookingId) {
             cy.request({
                 method: 'DELETE',
                 url: `/booking/${bookingId}`,
@@ -59,7 +62,8 @@ Cypress.Commands.add('deleteBooking', () => {
                 failOnStatusCode: false,
             });
         }
-    })
+      });
+    }
 })
 
 // This command will make a booking

@@ -1,6 +1,6 @@
 import { AdminLoginPageSelectors } from "../../selectors/adminLoginPageSelectors.js";
 import BasePage from "./BasePage.js";
-import HomePage from "./HomePage.js";
+import HomePage from "./AdminHomePage.js";
 
 class HomeAdminPage extends BasePage {
     constructor() {
