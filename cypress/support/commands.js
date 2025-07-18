@@ -176,3 +176,10 @@ Cypress.Commands.add('clearCache', { prevSubject: false }, () => {
     return true
   })
 
+// This is a mock data generator command that calls a helper function
+import { getPersonalData } from "../utils/dataGenerator";
+Cypress.Commands.add('generateUserData', () => {
+    const userData = getPersonalData();
+    return cy.wrap(userData);
+})
+

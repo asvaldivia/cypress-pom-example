@@ -10,7 +10,7 @@ describe('ISTQB Tests', () => {
     beforeEach(() =>{
         cy.clearCookies();
         cy.clearLocalStorage();
-        cy.reload(true);
+        indexedDB.deleteDatabase('keyval-store');
         _istqbHome.visit();
     })
 

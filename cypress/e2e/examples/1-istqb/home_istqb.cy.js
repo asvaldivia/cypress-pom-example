@@ -1,7 +1,9 @@
 
 describe('Home of ISTQB', () => {
     beforeEach(() =>{
-        cy.clearCache();
+        cy.clearCookies();
+        cy.clearLocalStorage();
+        indexedDB.deleteDatabase('keyval-store');
         cy.visit('https://www.istqb.org/');
     })
 
@@ -68,7 +70,5 @@ describe('Home of ISTQB', () => {
             .find('tr')
             .should('have.length.greaterThan', 2);
         });
-
     })
-    
 })

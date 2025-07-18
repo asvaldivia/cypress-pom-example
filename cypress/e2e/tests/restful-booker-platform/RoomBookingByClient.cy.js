@@ -2,6 +2,13 @@ import HomeClientPage from '../../../pages/restful-booker-platform/HomeClientPag
 
 describe('Room Booking By Client', () => {
     let homeClientPage;
+    let user;
+    before(() => {
+        cy.generateUserData().then((userData) => {
+            user = userData; // Assign the yielded data to the 'user' variable
+            cy.log('User data available in before hook:', user);
+        })
+    })
 
     beforeEach(() => {
         // Visiting the Login Page for Client of Restful Booker Platform
@@ -38,7 +45,7 @@ describe('Room Booking By Client', () => {
 
         // Select dates for booking
         homeClientPage.startBookingRoom()
-            .bookingRoom('Alvaro', 'Valdivia', 'emailofalvaro@gmail.com', '123123123123');
+            .bookingRoom(user.firstname, user.lastname, user.email, '123123123123');
 
         // Assert booking confirmation
         cy.wait('@bookingRequestToInjectData').its('response.body.booking.bookingdates').should('deep.equal', {
@@ -68,7 +75,7 @@ describe('Room Booking By Client', () => {
         homeClientPage.selectDatesForBooking(checkinDate, checkoutDate);
 
         homeClientPage.startBookingRoom()
-        .bookingRoom('Alvaro', 'Valdivia', 'asdasd@gmail.com', '67576556789')
+        .bookingRoom(user.firstname, user.lastname, user.email, '67576556789')
         // Assert booking error
         .getErrorAlert()
             .should('exist').

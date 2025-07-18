@@ -2,7 +2,7 @@ class istqbHome {
 
     constructor () {
         this.url = 'https://www.istqb.org/';
-        this.title = 'International Software Testing Qualifications Board - International Software Testing Qualifications Board';
+        this.title = 'International Software Testing Qualifications Board';
     }
 
     elements = {

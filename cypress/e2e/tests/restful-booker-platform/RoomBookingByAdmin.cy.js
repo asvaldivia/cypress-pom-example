@@ -5,6 +5,14 @@ import NavigationBar from '../../../components/NavigationBar.js';
 describe('Room Booking By Admin', () => {
     let adminLoginPage;
     let reportPage;
+    let user;
+    before(() => {
+        // Generate personal data
+        cy.generateUserData().then((userData) => {
+            user = userData; // Assign the yielded data to the 'user' variable
+            cy.log('User data available in before hook:', user);
+        });
+    });
 
     beforeEach(() => {
         // Visiting the Login Page for Admin of Restful Booker Platform
@@ -38,7 +46,7 @@ describe('Room Booking By Admin', () => {
 
         // Select dates for booking
         reportPage.selectDatesForBooking()
-            .fillInBookingDetails('Alvaro', 'Valdivia', '101', 'true')
+            .fillInBookingDetails(user.firstname, user.lastname, '101', 'true')
             .confirmBooking()
             .getErrorAlert().should('not.exist');
         
@@ -61,7 +69,7 @@ describe('Room Booking By Admin', () => {
         NavigationBar.goToRepors();
         // Select dates for booking, should be the same dates as the previous booking made via API in this test
         reportPage.selectDatesForBooking()
-            .fillInBookingDetails('Alvaro', 'Valdivia', '101', 'true')
+            .fillInBookingDetails(user.firstname, user.lastname, '101', 'true')
             .confirmBooking()
             // Assert booking error
             .getErrorAlert().should('exist');

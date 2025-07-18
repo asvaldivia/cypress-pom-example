@@ -1,4 +1,5 @@
 const { defineConfig } = require("cypress");
+const path = require('path');
 
 module.exports = defineConfig({
   projectId: "rynzrb",
@@ -28,7 +29,6 @@ module.exports = defineConfig({
           const teardownModule = require('./cypress/db/teardown.js')
           return teardownModule.tearDown();
         }
-
       })
     }
   },

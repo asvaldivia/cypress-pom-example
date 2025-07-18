@@ -5,8 +5,9 @@
     "cy:open": "cypress open"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.9.0",
     "axe-core": "^4.10.2",
-    "cypress": "^12.8.0",
+    "cypress": "^14.5.2",
     "cypress-axe": "^1.5.0",
     "cypress-xpath": "^2.0.1",
     "mochawesome": "^7.1.3"
