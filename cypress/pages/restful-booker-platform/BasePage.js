@@ -1,6 +1,7 @@
 class BasePage {
     constructor (path=''){
-        this.environment = Cypress.env('ENVIRONMENT') || 'development';
+
+        this.environment = Cypress.env('BASE_URL') ? 'custom/ci' : 'development';
 
         this.baseUrl = this.getBaseUrl();
 
@@ -15,16 +16,16 @@ class BasePage {
     }
 
     getBaseUrl(){
-        // You could load this from:
-        // 1. Cypress environment variables
-        // 2. External configuration file
-        // 3. API call to a configuration service
-        // 4. Computed based on other factors
+        // Check if BASE_URL is set, if yes, then return it
+        const externalBaseUrl = Cypress.env('BASE_URL');
+
+        if (externalBaseUrl) {
+            return externalBaseUrl;
+        }
       
+        // If the BASE_URL is not set, then return the default for the environment
         const environments = {
             development: 'http://localhost:8080/',
-            staging: 'http://localhost:8080/',
-            production: 'http://localhost:8080/'
         };
       
         return environments[this.environment];
