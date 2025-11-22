@@ -25,7 +25,7 @@ class BasePage {
       
         // If the BASE_URL is not set, then return the default for the environment
         const environments = {
-            development: 'http://localhost:8080/',
+            development: 'http://localhost:80/',
         };
       
         return environments[this.environment];
