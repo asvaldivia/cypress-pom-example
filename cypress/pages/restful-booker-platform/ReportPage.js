@@ -8,7 +8,8 @@ class ReportPage extends BasePage {
     }
 
     assertReportPageIsVisible() {
-        cy.url().should('eq', this.url);
+        cy.location('pathname').should('eq', '/');
+        cy.location('hash').should('eq', '#/admin/report');
     }
 
     selectDatesForBooking() {
