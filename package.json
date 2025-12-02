@@ -6,7 +6,7 @@
     "report:clean": "npx rimraf cypress/reports && npx rimraf cypress/results",
     "report:merge": "mochawesome-merge cypress/results/*.json -o cypress/results/merged.json",
     "report:generate": "marge cypress/results/merged.json -f report -o cypress/reports",
-    "cy:run:full": "npm run report:clean && npm run cy:run:chrome || true && npm run report:merge && npm run report:generate"
+    "cy:run:full": "sh -c 'npm run report:clean ; npm run cy:run:chrome -- \"$@\" ; npm run report:merge ; npm run report:generate' --"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
