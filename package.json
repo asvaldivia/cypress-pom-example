@@ -2,15 +2,22 @@
   "scripts": {
     "cy:run:chrome": "cypress run -b chrome",
     "cy:run:electron": "cypress run -b electron",
-    "cy:open": "cypress open"
+    "cy:open": "cypress open",
+    "report:clean": "npx rimraf cypress/reports && npx rimraf cypress/results",
+    "report:merge": "mochawesome-merge cypress/results/*.json -o cypress/results/merged.json",
+    "report:generate": "marge cypress/results/merged.json -f report -o cypress/reports",
+    "cy:run:full": "npm run report:clean && npm run cy:run:chrome || true && npm run report:merge && npm run report:generate"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.9.0",
     "axe-core": "^4.10.2",
     "cypress": "^14.5.2",
-    "cypress-axe": "^1.5.0",
+    "cypress-axe": "^1.7.0",
     "cypress-xpath": "^2.0.1",
-    "mochawesome": "^7.1.3"
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^5.1.0",
+    "mochawesome-report-generator": "^6.3.2",
+    "rimraf": "^6.1.2"
   },
   "dependencies": {
     "cypress-real-events": "^1.14.0"
