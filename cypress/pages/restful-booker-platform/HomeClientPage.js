@@ -9,7 +9,7 @@ class HomeClientPage extends BasePage {
     }
 
     loginByApi() {
-        cy.request('POST', this.url + 'auth/login',
+        cy.request('POST', this.url + '/auth/login',
         {
             username: 'admin',
             password: 'password'

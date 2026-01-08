@@ -4,7 +4,7 @@ import HomePage from "./AdminHomePage.js";
 
 class HomeAdminPage extends BasePage {
     constructor() {
-        super('#/admin');
+        super('/#/admin');
 
         this.elements = AdminLoginPageSelectors;
     }   

@@ -3,7 +3,7 @@ import { ReportPageSelectors } from "../../selectors/reportPageSelectors.js";
 
 class ReportPage extends BasePage {
     constructor () {
-        super('#/admin/report');
+        super('/#/admin/report');
         this.elements = ReportPageSelectors;
     }
 

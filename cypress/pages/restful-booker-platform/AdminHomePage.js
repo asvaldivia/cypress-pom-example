@@ -4,7 +4,7 @@ import NavigationBar from "../../components/NavigationBar.js";
 
 class HomePage extends BasePage{
     constructor() {
-        super('#/admin');
+        super('/#/admin');
         this.elements = HomeAdminPageSelectors;
         this.navbar = NavigationBar;
     };
