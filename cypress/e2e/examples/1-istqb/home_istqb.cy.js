@@ -63,7 +63,12 @@ describe('Home of ISTQB', () => {
         // Check more than 2 training providers
         cy.get('#menu-item-35 > a', {timeout: 10000}).click();
         cy.get('div.text p > a[href="/training-providers?directory_type=training-providers"]').click();
-        cy.get('#desktop-dropdowns > div.w-full.flex.items-center.mb-6 > button:nth-child(1)').click();
+        //cy.get('#desktop-dropdowns > div.w-full.flex.items-center.mb-6 > button:nth-child(1)').click();
+        
+        cy.contains('button', 'Search', { timeout: 10000 })
+            .should('exist')
+            .and('be.visible')
+            .click();
         acceptCookiesIfExist();
         cy.get('div#desktop-results', {timeout: 20000}).then(($providers) => {
             cy.wrap($providers)

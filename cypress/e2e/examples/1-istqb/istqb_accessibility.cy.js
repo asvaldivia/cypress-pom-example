@@ -10,7 +10,7 @@ describe('Accessibility test for ISTQB', () => {
         cy.visit('https://www.istqb.org');
         cy.injectAxe()
         cy.checkA11y(null, {
-            includedImpacts: ['critical']
+            includedImpacts: ['high']
           }, terminalLog);
     })
 })

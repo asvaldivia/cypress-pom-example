@@ -6,8 +6,8 @@ class IstqbTrainingProvidersPage {
     }
 
     elements = {
-        searchTrainersButton: () => cy.get('#desktop-dropdowns > div.w-full.flex.items-center.mb-6 > button:nth-child(1)'),
-        trainersTable: () => cy.get('div#desktop-results', {timeout: 20000})
+        searchTrainersButton: () => cy.contains('button', 'Search', { timeout: 10000 }),
+        trainersTable: () => cy.get('div#desktop-results', {timeout: 20000}),   
     }
 
     visit() {
