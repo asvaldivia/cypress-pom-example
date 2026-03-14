@@ -37,6 +37,3 @@ cypress/videos/
 mochawesome-report/
 cypress/reports/
 cypress/results/
-
-# Lock files (optional, if not needed)
-package-lock.json
