@@ -1,3 +1,9 @@
+# Pending
+# 1. Set an incorrect value on the env
+#       example: 
+#           Stagging is stagging.com
+#           local-ephemeral is local-ephemeral.com
+
 name: Cypress E2E Tests
 
 on:
@@ -18,7 +24,7 @@ on:
             type: choice
             options:
                 - staging
-                - local-ephemeral
+                - local-ephimeral
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
