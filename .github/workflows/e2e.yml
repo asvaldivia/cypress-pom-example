@@ -1,9 +1,3 @@
-# Pending
-# 1. Set an incorrect value on the env
-#       example: 
-#           Stagging is stagging.com
-#           local-ephemeral is local-ephemeral.com
-
 name: Cypress E2E Tests
 
 on:
@@ -35,7 +29,7 @@ jobs:
     name: Cypress E2E
     runs-on: ubuntu-latest
     timeout-minutes: 30 # hard kill if tests hang
-    environment: ${{ github.event.inputs.environment || 'staging' }}
+    environment: ${{ github.event.inputs.environment || 'stagging' }}
 
 
     steps:
@@ -50,6 +44,11 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Debug secrets
+        run: |
+          echo "Environment: ${{ github.event.inputs.environment || 'staging' }}"
+          echo "BASE_URL is set: ${{ secrets.BASE_URL != '' }}"
 
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
