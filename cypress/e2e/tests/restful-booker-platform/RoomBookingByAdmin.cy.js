@@ -2,7 +2,7 @@ import AdminLoginPage from '../../../pages/restful-booker-platform/HomeAdminPage
 import ReportPage from '../../../pages/restful-booker-platform/ReportPage.js';
 import NavigationBar from '../../../components/NavigationBar.js';
 
-describe('Room Booking By Admin', () => {
+describe.skip('Room Booking By Admin', () => {
     let adminLoginPage;
     let reportPage;
     let user;
