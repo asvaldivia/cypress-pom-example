@@ -1,6 +1,6 @@
 import HomeClientPage from '../../../pages/restful-booker-platform/HomeClientPage.js';
 
-describe.skip('Room Booking By Client', () => {
+describe('Room Booking By Client', () => {
     let homeClientPage;
     let user;
     before(() => {
