@@ -51,22 +51,69 @@ jobs:
           echo "BASE_URL is set: ${{ secrets.BASE_URL != '' }}"
 
       - name: Run Cypress tests
+        id: cypress
         uses: cypress-io/github-action@v6
         with:
           command: npm run cy:run:full:cicd -- --env BASE_URL=${{ secrets.BASE_URL }}
+        continue-on-error: true
+
+      - name: Zip HTML report
+        if: always()
+        run: zip -r cypress/reports/report.zip cypress/reports/report.html
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-report
+          path: cypress/reports/report.zip
+          retention-days: 7
 
       - name: Upload screenshots on failure
         uses: actions/upload-artifact@v4
-        if: failure()
+        if: steps.cypress.outcome == 'failure'
         with:
           name: cypress-screenshots
           path: cypress/screenshots
           retention-days: 7
 
-      - name: Upload videos
-        uses: actions/upload-artifact@v4
+      - name: Notify Discord
         if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos
-          retention-days: 7
+        run: |
+          STATUS="${{ steps.cypress.outcome }}"
+
+          if [ "$STATUS" = "success" ]; then
+            COLOR="3066993"
+            EMOJI="✅"
+            LABEL="PASSED"
+          else
+            COLOR="15158332"
+            EMOJI="❌"
+            LABEL="FAILED"
+          fi
+
+          curl -H "Content-Type: application/json" \
+            -d "{
+              \"embeds\": [{
+                \"title\": \"${EMOJI} Cypress E2E — ${LABEL}\",
+                \"color\": ${COLOR},
+                \"fields\": [
+                  { \"name\": \"Branch\", \"value\": \"${{ github.ref_name }}\", \"inline\": true },
+                  { \"name\": \"Environment\", \"value\": \"${{ github.event.inputs.environment || 'staging' }}\", \"inline\": true },
+                  { \"name\": \"Triggered by\", \"value\": \"${{ github.actor }}\", \"inline\": true },
+                  { \"name\": \"Run\", \"value\": \"[View on GitHub](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})\" }
+                ]
+              }]
+            }" \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Send report to Discord
+        if: always()
+        run: |
+          curl -F "file=@cypress/reports/report.zip" \
+            -F "payload_json={\"content\": \"📎 Full Mochawesome report for run <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}>\"}" \
+            ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+      - name: Fail pipeline if tests failed  # 👈 this is the fix
+        if: steps.cypress.outcome == 'failure'
+        run: exit 1
