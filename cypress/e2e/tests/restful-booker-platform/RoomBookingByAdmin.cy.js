@@ -1,6 +1,7 @@
 import AdminLoginPage from '../../../pages/restful-booker-platform/HomeAdminPage.js';
 import ReportPage from '../../../pages/restful-booker-platform/ReportPage.js';
 import NavigationBar from '../../../components/NavigationBar.js';
+import BasePage from '../../../pages/restful-booker-platform/BasePage.js';
 
 
 // To run this suite, make sure to have the Restful Booker Platform running locally and the database is reset to the initial state, then execute the following command in the terminal:
