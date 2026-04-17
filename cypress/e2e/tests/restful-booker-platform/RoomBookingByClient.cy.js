@@ -1,4 +1,5 @@
 import HomeClientPage from '../../../pages/restful-booker-platform/HomeClientPage.js';
+import BasePage from '../../../pages/restful-booker-platform/BasePage.js';
 
 // To run this suite, make sure to have the Restful Booker Platform running locally and the database is reset to the initial state, then execute the following command in the terminal:
 // npx cypress run --spec "cypress/e2e/tests/restful-booker-platform/RoomBookingByAdmin.cy.js"
@@ -7,12 +8,19 @@ import HomeClientPage from '../../../pages/restful-booker-platform/HomeClientPag
 // find the API commands used in this test suite for setup and teardown processes, as weel as a circle ci pipeline to run this suite on
 // and ephemeral environment setup for the application, database and cypress execution.
 
-// TODO: circle ci pipeline injects flag to run this suite.
+// TODO: circle ci pipeline injects flag to run this suite OR check health before running the tests
 // If the flag is not injected this suite will be skipped.
-describe.skip('Room Booking By Client', () => {
+describe('Room Booking By Client', () => {
     let homeClientPage;
     let user;
-    before(() => {
+    before(function() {
+        let basePage = new BasePage();
+        const url = basePage.baseUrl;         // already resolved in the constructor
+        cy.isBookingPlatformHealthy(url).then(function(isHealthy) {
+            if (!isHealthy) {
+                this.skip(); // Skip the entire suite if the platform is not healthy
+            }
+        });
         cy.generateUserData().then((userData) => {
             user = userData; // Assign the yielded data to the 'user' variable
             cy.log('User data available in before hook:', user);

@@ -183,3 +183,9 @@ Cypress.Commands.add('generateUserData', () => {
     return cy.wrap(userData);
 })
 
+Cypress.Commands.add('isBookingPlatformHealthy', (url) => {
+    const fullUrl = url + '/actuator/health';
+    return cy.task('checkHealth', fullUrl).then((isHealthy) => {
+        return isHealthy;
+    });
+});

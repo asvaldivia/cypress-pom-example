@@ -1,5 +1,6 @@
 const { defineConfig } = require("cypress");
 const path = require('path');
+const http = require('http');
 
 module.exports = defineConfig({
   projectId: "rynzrb",
@@ -28,6 +29,17 @@ module.exports = defineConfig({
         dbTearDown(){
           const teardownModule = require('./cypress/db/teardown.js')
           return teardownModule.tearDown();
+        },
+        checkHealth(url) {
+          return new Promise((resolve) => {
+            http.get(url, (res) => {
+              // service up, resolve true
+              resolve(res.statusCode === 200);
+            }).on('error', () => {
+              // otherwise, servide is down, resolve false
+                resolve(false);
+              });
+           });
         }
       })
     }
