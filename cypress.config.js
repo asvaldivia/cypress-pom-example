@@ -30,10 +30,17 @@ module.exports = defineConfig({
           return teardownModule.tearDown();
         },
         async checkHealth(url) {
+          console.log(`\n[Health Check Task] Attempting to ping: ${url}\n`);
           try {
             const response = await fetch(url);
+
+            console.log(`[Health Check Task] Response Status: ${response.status}`);
+
             return response.ok; // returns true for status 200-299
           } catch (error) {
+
+            console.error(`[Health Check Task] Failed: ${error.message}`);
+
             return false;
           }
         }
