@@ -114,6 +114,6 @@ jobs:
             -F "payload_json={\"content\": \"📎 Full Mochawesome report for run <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}>\"}" \
             ${{ secrets.DISCORD_WEBHOOK_URL }}
 
-      - name: Fail pipeline if tests failed  # 👈 this is the fix
+      - name: Fail pipeline if tests failed
         if: steps.cypress.outcome == 'failure'
         run: exit 1
