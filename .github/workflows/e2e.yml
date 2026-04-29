@@ -28,7 +28,7 @@ jobs:
   cypress-run:
     name: Cypress E2E
     runs-on: ubuntu-latest
-    timeout-minutes: 30 # hard kill if tests hang
+    timeout-minutes: 30
     environment: ${{ github.event.inputs.environment || 'stagging' }}
 
 
